@@ -1,7 +1,8 @@
 'use strict';
 
-var inherits     = require('util').inherits,
-	EventEmitter = require('events').EventEmitter;
+var inherits      = require('util').inherits,
+	EventEmitter  = require('events').EventEmitter,
+	PlatformError = require('./platform-error');
 
 var isString = function (val) {
 	return typeof val === 'string' || ((!!val && typeof val === 'object') && Object.prototype.toString.call(val) === '[object String]');
@@ -13,7 +14,6 @@ function Platform() {
 	var self = this;
 
 	process.on('uncaughtException', function (error) {
-		console.error(error);
 		self.handleException(error);
 		process.exit(1);
 	});
@@ -30,8 +30,8 @@ Platform.init = function () {
 	process.on('message', function (m) {
 		if (m.type === 'ready')
 			self.emit('ready', m.data.options);
-		else if (m.type === 'data')
-			self.emit('data', m.data);
+		else if (m.type === 'error')
+			self.emit('error', new PlatformError(m.data.message, m.data.stack));
 	});
 };
 

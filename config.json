@@ -1,17 +1,11 @@
-[
-  {
-	"name": "dsn",
-	"label": "Domain Server Name",
+{
+  "dsn": {
+	"label": "DSN",
 	"type": "String",
-	"required": true
-  },
-  {
-	"name": "captureType",
-	"label": "Capture Type", //Error, Message, Exception, Query (defaults to error)
-	"type": "String",
-	"required": true
+	"required": true,
+	"help": "Specify your Sentry DSN."
   }
-]
+}
 
 
 
