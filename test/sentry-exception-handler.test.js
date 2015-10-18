@@ -1,5 +1,7 @@
 'use strict';
 
+const DSN = 'https://79b79ae484fe419da770922d8f4cb3e1:2d4b8fe77ae449389f8f960e589128e7@app.getsentry.com/54044';
+
 var cp     = require('child_process'),
 	should = require('should'),
 	exceptionHandler;
@@ -34,7 +36,7 @@ describe('Exception Handler', function () {
 				type: 'ready',
 				data: {
 					options: {
-						dsn: 'https://79b79ae484fe419da770922d8f4cb3e1:2d4b8fe77ae449389f8f960e589128e7@app.getsentry.com/54044'
+						dsn: DSN
 					}
 				}
 			}, function (error) {
