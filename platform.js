@@ -54,6 +54,8 @@ Platform.init = function () {
 			self.emit('ready', m.data.options);
 		else if (m.type === 'error')
 			self.emit('error', new PlatformError(m.data.message, m.data.stack));
+		else if (m.type === 'close')
+			self.emit('close');
 	});
 };
 
@@ -68,6 +70,21 @@ Platform.prototype.notifyReady = function (callback) {
 	setImmediate(function () {
 		process.send({
 			type: 'ready'
+		}, callback);
+	});
+};
+
+/**
+ * Notifies the platform that resources have been released and this plugin can shutdown gracefully.
+ * @param {function} [callback] Optional callback to be called once the close signal has been sent.
+ */
+Platform.prototype.notifyClose = function (callback) {
+	callback = callback || function () {
+		};
+
+	setImmediate(function () {
+		process.send({
+			type: 'close'
 		}, callback);
 	});
 };
