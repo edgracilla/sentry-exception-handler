@@ -1,7 +1,5 @@
 'use strict';
 
-var inherits = require('util').inherits;
-
 /**
  * Standard error object for the Reekoh IoT Platform
  * @param {string} message Error summary or message.
@@ -14,6 +12,6 @@ function PlatformError(message, stack) {
 	this.stack = stack || '';
 }
 
-inherits(PlatformError, Error);
+require('util').inherits(PlatformError, Error);
 
 module.exports = PlatformError;
