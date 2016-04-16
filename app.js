@@ -30,6 +30,6 @@ platform.once('ready', function (options) {
 		platform.handleException(new Error(error.reason));
 	});
 
-	platform.log('Sentry Exception Handler Initialized.')
+	platform.log('Sentry Exception Handler Initialized.');
 	platform.notifyReady();
 });
