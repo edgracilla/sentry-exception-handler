@@ -1,35 +1,32 @@
-'use strict';
+'use strict'
 
-var platform = require('./platform'),
-	sentryClient;
+const reekoh = require('reekoh')
+const _plugin = new reekoh.plugins.ExceptionLogger()
 
-/*
- * Listen for the error event.
- */
-platform.on('error', function (error) {
-	sentryClient.captureError(error);
-});
 
-/*
- * Event to listen to in order to gracefully release all resources bound to this service.
- */
-platform.on('close', function () {
-	platform.notifyClose();
-});
+let sentryClient = null
 
-/*
- * Listen for the ready event.
- */
-platform.once('ready', function (options) {
-	var raven = require('raven');
+_plugin.on('exception', (error) => {
+  sentryClient.captureException(error)
 
-	sentryClient = new raven.Client(options.dsn);
+  _plugin.log(JSON.stringify({
+    title: 'Exception sent to Sentry',
+    data: {message: error.message, stack: error.stack, name: error.name}
+  }))
+})
 
-	sentryClient.on('error', function (error) {
-		console.error('Error on Sentry.', error);
-		platform.handleException(new Error(error.reason));
-	});
+_plugin.once('ready', () => {
+  let raven = require('raven')
 
-	platform.log('Sentry Exception Handler Initialized.');
-	platform.notifyReady();
-});
+  sentryClient = new raven.Client(_plugin.config.dsn)
+
+  sentryClient.on('error', (error) => {
+    console.error('Error on Sentry.', error)
+    _plugin.logException(new Error(error.reason))
+  })
+
+  _plugin.log('Sentry Exception Logger has been initialized.')
+  _plugin.emit('init')
+})
+
+module.exports = _plugin
