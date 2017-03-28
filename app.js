@@ -1,32 +1,31 @@
 'use strict'
 
 const reekoh = require('reekoh')
-const _plugin = new reekoh.plugins.ExceptionLogger()
-
+const plugin = new reekoh.plugins.ExceptionLogger()
 
 let sentryClient = null
 
-_plugin.on('exception', (error) => {
+plugin.on('exception', (error) => {
   sentryClient.captureException(error)
 
-  _plugin.log(JSON.stringify({
+  plugin.log(JSON.stringify({
     title: 'Exception sent to Sentry',
     data: {message: error.message, stack: error.stack, name: error.name}
   }))
 })
 
-_plugin.once('ready', () => {
+plugin.once('ready', () => {
   let raven = require('raven')
 
-  sentryClient = new raven.Client(_plugin.config.dsn)
+  sentryClient = new raven.Client(plugin.config.dsn)
 
   sentryClient.on('error', (error) => {
     console.error('Error on Sentry.', error)
-    _plugin.logException(new Error(error.reason))
+    plugin.logException(new Error(error.reason))
   })
 
-  _plugin.log('Sentry Exception Logger has been initialized.')
-  _plugin.emit('init')
+  plugin.log('Sentry Exception Logger has been initialized.')
+  plugin.emit('init')
 })
 
-module.exports = _plugin
+module.exports = plugin

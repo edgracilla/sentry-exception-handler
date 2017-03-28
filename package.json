@@ -6,23 +6,27 @@
   "scripts": {
     "test": "gulp lint"
   },
-  "author": "reekoh",
+  "author": "Reekoh, Inc.",
   "license": "GPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Reekoh/sentry-exception-handler"
+  },
   "dependencies": {
-    "amqplib": "^0.5.1",
-    "raven": "^1.1.2",
-    "reekoh": "^1.0.0"
+    "amqplib": "=0.5.1",
+    "raven": "=1.1.2",
+    "reekoh": "=1.0.2"
   },
   "devDependencies": {
-    "gulp": "^3.9.1",
-    "gulp-cli": "^1.2.1",
-    "gulp-jshint": "^2.0.1",
-    "gulp-json-lint": "^0.1.0",
-    "gulp-mocha": "^2.2.0",
-    "gulp-plumber": "^1.1.0",
-    "gulp-standard": "^8.0.4",
-    "jshint": "^2.9.4",
-    "mocha": "^2.5.3",
-    "should": "^9.0.2"
+    "gulp": "=3.9.1",
+    "gulp-cli": "=1.2.1",
+    "gulp-jshint": "=2.0.1",
+    "gulp-json-lint": "=0.1.0",
+    "gulp-mocha": "=2.2.0",
+    "gulp-plumber": "=1.1.0",
+    "gulp-standard": "=8.0.4",
+    "jshint": "=2.9.4",
+    "mocha": "=2.5.3",
+    "should": "=9.0.2"
   }
 }
