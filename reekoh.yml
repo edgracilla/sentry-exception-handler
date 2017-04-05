@@ -3,7 +3,6 @@ kind: Plugin
 metadata:
   name: Sentry Exception Logger
   description: Sentry Exception Logger Plugin for the Reekoh IoT Platform. Integrates a Reekoh instance with Sentry to sync errors/exceptions data
-  documentation: README.md
   icon: asset/icon/reekoh200x200.png
   signupLink: https://myservice.com/signup # ??
   type: Logger
@@ -12,15 +11,15 @@ metadata:
     - logger
     - exception-logger
     - sentry
-  config:
-    dsn:
-      label: DSN
-      type: String
-      required: true
-      help: Specify your Sentry DSN.
-      maxLength: 1000
 
   release:
     version: 1.0.0
     notes: path/to/RELEASENOTESv1.0.0.md # ??
-    image: path/to/docker/image # ??
+    documentation: README.md
+    config:
+      dsn:
+        label: DSN
+        type: String
+        required: true
+        help: Specify your Sentry DSN.
+        maxLength: 1000
